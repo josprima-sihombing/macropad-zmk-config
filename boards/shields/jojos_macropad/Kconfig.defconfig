@@ -1,0 +1,6 @@
+if SHIELD_JOJOS_MACROPAD
+
+config ZMK_KEYBOARD_NAME
+    default "jojos-macropad"
+
+endif # SHIELD_JOJOS_MACROPAD

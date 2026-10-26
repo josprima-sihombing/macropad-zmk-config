@@ -1,0 +1,42 @@
+#include <dt-bindings/zmk/matrix_transform.h>
+
+#include "jojos_macropad-layouts.dtsi"
+
+/ {
+    chosen {
+        zmk,physical-layout = &default_layout;
+    };
+
+    kscan: kscan {
+        // Each switch is wired directly between its GPIO and ground, so the
+        // internal pull-up keeps the pin high while the switch is open.
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+
+        // Order matches the physical keys (key 1 .. key 11).
+        input-gpios
+            = <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // key 1  - P0.17
+            , <&gpio0 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // key 2  - P0.20
+            , <&gpio0 22 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // key 3  - P0.22
+            , <&gpio0 24 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // key 4  - P0.24
+            , <&gpio1 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // key 5  - P1.00
+            , <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // key 6  - P0.11
+            , <&gpio1 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // key 7  - P1.04
+            , <&gpio1 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // key 8  - P1.06
+            , <&gpio0 9 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // key 9  - P0.09
+            , <&gpio0 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // key 10 - P0.10
+            , <&gpio1 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)> // key 11 - P1.11
+            ;
+    };
+
+    default_transform: default_transform {
+        compatible = "zmk,matrix-transform";
+        columns = <11>;
+        rows = <1>;
+
+        map = <
+            RC(0, 0) RC(0, 1) RC(0, 2) RC(0, 3) RC(0, 4) RC(0, 5)
+            RC(0, 6) RC(0, 7) RC(0, 8) RC(0, 9) RC(0, 10)
+        >;
+    };
+};
