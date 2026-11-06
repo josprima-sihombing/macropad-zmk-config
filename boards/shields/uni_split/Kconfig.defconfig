@@ -1,0 +1,6 @@
+if SHIELD_UNI_SPLIT
+
+config ZMK_KEYBOARD_NAME
+    default "uni-split"
+
+endif # SHIELD_UNI_SPLIT

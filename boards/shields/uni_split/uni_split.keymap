@@ -1,0 +1,50 @@
+// Basic keymap for the uni-split (5x3+3, 36 keys).
+//
+// Matrix/transform order:
+//   row 0: Q  W  E  R  T   Y  U  I  O  P
+//   row 1: A  S  D  F  G   H  J  K  L  ;
+//   row 2: Z  X  C  V  B   N  M  ,  .  /
+//   row 3 (thumbs):  LGUI LWR LSHFT | SPACE RSE RALT
+//
+// Layer 0 (default): QWERTY
+// Layer 1 (lower):   numbers and symbols
+// Layer 2 (raise):   navigation, media, and ZMK Studio unlock
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            display-name = "QWERTY";
+            bindings = <
+                &kp Q   &kp W   &kp E   &kp R   &kp T      &kp Y   &kp U   &kp I     &kp O    &kp P
+                &kp A   &kp S   &kp D   &kp F   &kp G      &kp H   &kp J   &kp K     &kp L    &kp SEMI
+                &kp Z   &kp X   &kp C   &kp V   &kp B      &kp N   &kp M   &kp COMMA &kp DOT  &kp FSLH
+                                &kp LGUI &mo 1  &kp LSHFT  &kp SPACE &mo 2  &kp RALT
+            >;
+        };
+
+        lower_layer {
+            display-name = "Lower";
+            bindings = <
+                &kp N1  &kp N2  &kp N3  &kp N4  &kp N5     &kp N6  &kp N7  &kp N8    &kp N9   &kp N0
+                &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT &kp CARET &kp AMPS &kp ASTRK &kp LPAR &kp RPAR
+                &kp MINUS &kp EQUAL &kp LBKT &kp RBKT &kp BSLH &kp PIPE &kp SEMI &kp COLON &kp SQT &kp DQT
+                                &trans  &trans  &trans     &trans  &trans  &trans
+            >;
+        };
+
+        raise_layer {
+            display-name = "Raise";
+            bindings = <
+                &kp TAB  &kp HOME &kp UP   &kp END  &kp PG_UP    &kp C_VOL_DN &kp C_VOL_UP &kp C_MUTE &kp INS &kp DEL
+                &kp ESC  &kp LEFT &kp DOWN &kp RIGHT &kp PG_DN   &kp BSPC     &kp RET      &trans     &trans   &trans
+                &trans   &trans   &trans   &trans   &trans       &trans       &trans       &trans     &trans   &trans
+                                         &trans   &trans   &trans       &trans       &trans       &studio_unlock
+            >;
+        };
+    };
+};

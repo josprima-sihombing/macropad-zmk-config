@@ -1,0 +1,2 @@
+config SHIELD_UNI_SPLIT
+    def_bool $(shields_list_contains,uni_split)
