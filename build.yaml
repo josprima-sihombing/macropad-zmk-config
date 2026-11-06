@@ -29,4 +29,11 @@ include:
     snippet: studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_STUDIO=y
     artifact-name: uni_split
+  # Diagnostic build: USB logging + interactive shell (I2C scan) instead of
+  # Studio. Flash this only when debugging the OLED.
+  - board: nice_nano
+    shield: uni_split
+    snippet: zmk-usb-logging
+    cmake-args: -DCONFIG_ZMK_STUDIO=n -DCONFIG_SHELL=y -DCONFIG_I2C_SHELL=y -DCONFIG_DISPLAY_LOG_LEVEL=4
+    artifact-name: uni_split_debug
 

@@ -103,6 +103,10 @@
         display-offset = <0>;
         multiplex-ratio = <63>;
         prechargep = <0x22>;
+        // The panel is powered from the nice!nano's switched VCC rail, which
+        // EXT_POWER turns on just before the display driver probes the bus.
+        // Give the controller time to finish its power-on reset.
+        ready-time-ms = <250>;
         inversion-on;
     };
 };
