@@ -8,6 +8,7 @@
 / {
     chosen {
         zmk,physical-layout = &default_layout;
+        zephyr,display = &oled;
     };
 
     kscan: kscan {
@@ -54,5 +55,51 @@
             RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5) RC(2,6) RC(2,7) RC(2,8) RC(2,9)
             RC(3,2) RC(3,3) RC(3,4) RC(3,5) RC(3,6) RC(3,7)
         >;
+    };
+};
+
+// The nice!nano default I2C0 pins (D2/D3, P0.17/P0.20) are matrix rows 1 and
+// 2 on this keyboard, so move I2C0 to D0/D1 (P0.08/P0.06) for the OLED.
+//
+// SDA is wired to D0 (P0.08), SCL to D1 (P0.06).
+&pinctrl {
+    i2c0_oled_default: i2c0_oled_default {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 8)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 6)>;
+            bias-pull-up;
+        };
+    };
+
+    i2c0_oled_sleep: i2c0_oled_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 8)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 6)>;
+            bias-pull-up;
+            low-power-enable;
+        };
+    };
+};
+
+&i2c0 {
+    status = "okay";
+    pinctrl-0 = <&i2c0_oled_default>;
+    pinctrl-1 = <&i2c0_oled_sleep>;
+    pinctrl-names = "default", "sleep";
+
+    // 128x64 SSD1306 OLED at the usual 0x3c address.
+    oled: ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        width = <128>;
+        height = <64>;
+        segment-offset = <0>;
+        page-offset = <0>;
+        display-offset = <0>;
+        multiplex-ratio = <63>;
+        segment-remap;
+        com-invdir;
+        com-sequential;
+        prechargep = <0x22>;
     };
 };
