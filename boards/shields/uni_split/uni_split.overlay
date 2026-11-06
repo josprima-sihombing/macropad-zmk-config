@@ -88,6 +88,11 @@
     pinctrl-names = "default", "sleep";
 
     // 128x64 SSD1306 OLED at the usual 0x3c address.
+    //
+    // Do not copy the 128x32 shield settings here: a 128x64 panel uses the
+    // "alternative" COM pin configuration (the default), so `com-sequential`
+    // must be omitted or the panel stays dark. `inversion-on` is required on
+    // Zephyr 3.5+ for the mono theme to render normally.
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
@@ -97,9 +102,7 @@
         page-offset = <0>;
         display-offset = <0>;
         multiplex-ratio = <63>;
-        segment-remap;
-        com-invdir;
-        com-sequential;
         prechargep = <0x22>;
+        inversion-on;
     };
 };
