@@ -4,5 +4,5 @@ include:
   - board: nice_nano
     shield: uni_split
     snippet: zmk-usb-logging
-    cmake-args: -DCONFIG_ZMK_STUDIO=n -DCONFIG_LOG_DEFAULT_LEVEL=4
+    cmake-args: -DCONFIG_ZMK_STUDIO=n -DCONFIG_DISPLAY_LOG_LEVEL=4
     artifact-name: uni_split_debug
