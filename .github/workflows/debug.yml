@@ -1,0 +1,15 @@
+name: Build ZMK diagnostic firmware
+
+# Serial (USB CDC ACM) logging build, only used for debugging the OLED.
+# Kept separate so a failure here never blocks the regular `firmware`
+# artifact from build.yml.
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
+    with:
+      build_matrix_path: build-debug.yaml
+      config_path: config
+      archive_name: firmware-debug

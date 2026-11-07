@@ -81,18 +81,15 @@
     };
 };
 
-&i2c0 {
+// Same shape ZMK's own OLED shields (Corne, Kyria, Waterfowl) ship with.
+&pro_micro_i2c {
     status = "okay";
     pinctrl-0 = <&i2c0_oled_default>;
     pinctrl-1 = <&i2c0_oled_sleep>;
     pinctrl-names = "default", "sleep";
 
     // 128x64 SSD1306 OLED at the usual 0x3c address.
-    //
-    // Do not copy the 128x32 shield settings here: a 128x64 panel uses the
-    // "alternative" COM pin configuration (the default), so `com-sequential`
-    // must be omitted or the panel stays dark. `inversion-on` is required on
-    // Zephyr 3.5+ for the mono theme to render normally.
+    // `segment-remap` + `com-invdir` rotate the image 180 degrees.
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
@@ -102,11 +99,9 @@
         page-offset = <0>;
         display-offset = <0>;
         multiplex-ratio = <63>;
-        prechargep = <0x22>;
-        // The panel is powered from the nice!nano's switched VCC rail, which
-        // EXT_POWER turns on just before the display driver probes the bus.
-        // Give the controller time to finish its power-on reset.
-        ready-time-ms = <250>;
+        segment-remap;
+        com-invdir;
         inversion-on;
+        prechargep = <0x22>;
     };
 };
