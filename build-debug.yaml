@@ -1,8 +1,0 @@
-# Diagnostic build matrix, used by .github/workflows/debug.yml only.
-# This never affects the regular `firmware` artifact that build.yaml produces.
-include:
-  - board: nice_nano
-    shield: uni_split
-    snippet: zmk-usb-logging
-    cmake-args: -DCONFIG_ZMK_STUDIO=n -DCONFIG_DISPLAY_LOG_LEVEL=4
-    artifact-name: uni_split_debug
